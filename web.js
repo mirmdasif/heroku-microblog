@@ -40,6 +40,9 @@ articleProvider.findAll(function (error,result){
 app.get('/',function (req,res){
   res.render('index',{title:'welcome'});
 });
+app.get('/environment',function (req,res){
+  res.send(process.env);
+});
 
 
 app.get('/blog', function(req, res){
