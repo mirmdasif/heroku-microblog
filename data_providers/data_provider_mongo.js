@@ -20,6 +20,7 @@ var ArticleProvider = function () {
 ArticleProvider.prototype.getCollection = function (callback) {
   
   Db.connect(mongoUri, function (err, db) {
+      
       db.collection('articles',function (error,article_collection){
       if(error){ 
         callback(error);
