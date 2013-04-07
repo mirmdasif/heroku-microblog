@@ -6,38 +6,25 @@ var BSON = require(mongoLocation).BSON;
 var ObjectID = require(mongoLocation).ObjectID;
 
 
-//==================mongo url for heroku=========================
-var mongoUri = process.env.MONGOLAB_URI || 
-  process.env.MONGOHQ_URL || 
-  'mongodb://localhost:27017/node-mongo-blog-heroku'; 
-//===============================================
-
 //Create My Article Provider Object
-var ArticleProvider = function () {
-  Db.connect(mongoUri, function (err, db) {
-    db.collection('mydocs', function(er, collection) {
-      collection.insert({'mykey': 'myvalue'}, {safe: true}, function(er,rs) {
-        console.log(rs);
-      });
-    });
+var ArticleProvider = function (host,port) {
+  //Create The Database 
+  this.db = new Db('node-mongo-blog',new Server(host,port,{auto_reconnect:true},{}));
+  this.db.open(function(){
+    //console.log("Data base success fully created");
   });
 };
 
 // Get 'articles' collection form database
 ArticleProvider.prototype.getCollection = function (callback) {
-  
-  /*
-  Db.connect(mongoUri, function (err, db) {
-      
-      db.collection('articles',function (error,article_collection){
-      if(error){ 
-        callback(error);
-      }
-      else {
-        callback(null,article_collection);
-      }
-    });
-  });*/
+  this.db.collection('articles',function (error,article_collection){
+    if(error){ 
+      callback(error);
+    }
+    else {
+      callback(null,article_collection);
+    }
+  });
 };
 
 
