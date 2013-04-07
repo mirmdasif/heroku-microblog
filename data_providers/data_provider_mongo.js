@@ -9,7 +9,7 @@ var ObjectID = require(mongoLocation).ObjectID;
 //==================mongo url for heroku=========================
 var mongoUri = process.env.MONGOLAB_URI || 
   process.env.MONGOHQ_URL || 
-  'mongodb://localhost:27017/node-mongo-blog'; 
+  'mongodb://localhost:27017/node-mongo-blog-heroku'; 
 //===============================================
 
 //Create My Article Provider Object
