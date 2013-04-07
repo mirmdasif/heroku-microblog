@@ -18,13 +18,13 @@ app.configure(function (){
 
 //====================
 
-var host = process.env['MONGO_NODE_DRIVER_HOST'] != null ? process.env['MONGO_NODE_DRIVER_HOST'] : 'localhost';
-var port = process.env['MONGO_NODE_DRIVER_PORT'] != null ? process.env['MONGO_NODE_DRIVER_PORT'] : 27017;
 
 // import my ArticleProvider module and connect to a server
 var ArticleProvider = require('./data_providers/data_provider_mongo').ArticleProvider;
 // You have to give your own database url and port here
-var articleProvider = new ArticleProvider(host,port);
+var mongoUrl = process.env.MONGOHQ_URL || 'mongodb://admin:admin123@localhost:27017/node-mongo-blog'
+
+var articleProvider = new ArticleProvider(mongoUrl);
 
 articleProvider.findAll(function (error,result){
   console.log(result);

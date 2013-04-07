@@ -7,23 +7,25 @@ var ObjectID = require(mongoLocation).ObjectID;
 
 
 //Create My Article Provider Object
-var ArticleProvider = function (host,port) {
+var ArticleProvider = function (hostUrl) {
   //Create The Database 
-  this.db = new Db('node-mongo-blog',new Server(host,port,{auto_reconnect:true},{}));
-  this.db.open(function(){
-    //console.log("Data base success fully created");
-  });
+  this.hostUrl = hostUrl;
+  
+  
 };
 
 // Get 'articles' collection form database
 ArticleProvider.prototype.getCollection = function (callback) {
-  this.db.collection('articles',function (error,article_collection){
-    if(error){ 
-      callback(error);
-    }
-    else {
-      callback(null,article_collection);
-    }
+  Db.connect(this.hostUrl,function(error,db){
+    db.collection('articles',function (error,article_collection){
+      if(error){ 
+        callback(error);
+      }
+      else {
+        callback(null,article_collection);
+      }
+    });
+    
   });
 };
 
