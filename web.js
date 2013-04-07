@@ -44,13 +44,17 @@ app.get('/environment',function (req,res){
   
   var mongo = require('mongodb');
 
+  console.log(mongo);
   var mongoUri = process.env.MONGOLAB_URI || 
     process.env.MONGOHQ_URL || 
     'mongodb://localhost/mydb'; 
-
+  console.log(mongoUri);
   mongo.Db.connect(mongoUri, function (err, db) {
+    
+    console.log(db);
     db.collection('mydocs', function(er, collection) {
       collection.insert({'mykey': 'myvalue'}, {safe: true}, function(er,rs) {
+        console.log(rs);
         res.send(rs);
       });
     });
