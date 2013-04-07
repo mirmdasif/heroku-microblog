@@ -22,7 +22,9 @@ var ArticleProvider = require('./data_providers/data_provider_mongo').ArticlePro
 // You have to give your own database url and port here
 var articleProvider = new ArticleProvider();
 
-
+articleProvider.findAll(function (error,result){
+  console.log(result);
+});
 //======================
 
 
