@@ -14,11 +14,19 @@ var mongoUri = process.env.MONGOLAB_URI ||
 
 //Create My Article Provider Object
 var ArticleProvider = function () {
+  Db.connect(mongoUri, function (err, db) {
+    db.collection('mydocs', function(er, collection) {
+      collection.insert({'mykey': 'myvalue'}, {safe: true}, function(er,rs) {
+        console.log(rs);
+      });
+    });
+  });
 };
 
 // Get 'articles' collection form database
 ArticleProvider.prototype.getCollection = function (callback) {
   
+  /*
   Db.connect(mongoUri, function (err, db) {
       
       db.collection('articles',function (error,article_collection){
@@ -29,7 +37,7 @@ ArticleProvider.prototype.getCollection = function (callback) {
         callback(null,article_collection);
       }
     });
-  });
+  });*/
 };
 
 
